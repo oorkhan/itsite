@@ -16,4 +16,11 @@ class pagesController extends Controller
     public function about(){
         return view('about');
     }
+
+    public function tables(){
+        return view('tables');
+    }
+    public function charts(){
+        return view('charts');
+    }
 }
