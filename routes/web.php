@@ -16,6 +16,7 @@ Route::get('/contact','pagesController@contact');
 Route::get('/about','pagesController@about');
 Route::get('/tables','pagesController@tables');
 Route::get('/charts','pagesController@charts');
+Route::get('/departments','departmentsController@index');
 
 // Route::get('/', function () {
 //     return view('home');
