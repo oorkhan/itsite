@@ -1,3 +1,7 @@
+<?php
+use App\Http\Controllers\departmentsController;
+$createUrl = action('departmentsController@create');
+?>
 @extends('layout')
 @section('title', 'Departments')
 @section('content')
@@ -16,6 +20,9 @@
 <h1>@yield('title')</h1>
 <hr>
 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo a esse, minima tempora, magni quas obcaecati voluptate vero architecto ex maiores quaerat mollitia cum nostrum adipisci, harum perspiciatis assumenda.</p>
+<div>
+<a class="btn btn-success mb-2" href="{{$createUrl}}">Add department</a>
+</div>
 <div class="card mb-3">
     <div class="card-header">
         <i class="fas fa-table"></i>
