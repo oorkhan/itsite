@@ -11,14 +11,23 @@
 |
 */
 
+/*
+    get /departments (index)
+    get /departments/create (create)
+    get /departments/1 (show)
+    post /departments (store)
+    patch /departments/1/edit (update)
+    delete /departments/1 (destroy)
+*/
+Route::resource('departments', 'departmentsController');
 Route::get('/','pagesController@index');
 Route::get('/contact','pagesController@contact');
 Route::get('/about','pagesController@about');
 Route::get('/tables','pagesController@tables');
 Route::get('/charts','pagesController@charts');
-Route::get('/departments','departmentsController@index');
-Route::post('/departments','departmentsController@store');
-Route::get('/departments/create','departmentsController@create');
+// Route::get('/departments','departmentsController@index');
+// Route::post('/departments','departmentsController@store');
+// Route::get('/departments/create','departmentsController@create');
 
 // Route::get('/', function () {
 //     return view('home');

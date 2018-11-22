@@ -50,8 +50,14 @@ $createUrl = action('departmentsController@create');
             @foreach ($departments as $department)
             <tr>
                 <td>{{$department->name}}</td>
-                <td><a href="#" class="btn btn-warning">Edit</a></td>
-                <td><a href="#" class="btn btn-danger">Delete</a></td>
+                <td><a href="/departments/{{$department->id}}/edit" class="btn btn-warning">Edit</a></td>
+                <td>
+                    <form action="/departments/{{$department->id}}" method="POST">
+                    {{method_field('DELETE')}}
+                    {{CSRF_field()}}
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </td>
                 <td><a href="#" class="btn btn-primary">Details</a></td>
             </tr>
             @endforeach
