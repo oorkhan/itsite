@@ -20,32 +20,43 @@ class departmentsController extends Controller
 
     // get /departments/1/edit (edit)
 
-    public function edit($id){
-        $department = department::findOrFail($id);
+    public function edit(Department $department){
         return view('department.edit', compact('department'));
     }
 
     // PUT|PATCH | departments/{department}      | departments.update  | App\Http\Controllers\departmentsController@update
-    public function update($id){
-        $department = department::findOrFail($id);
-        $department->name = request('departmentName');
-        $department->description = request('departmentDescription');
-        $department->save();
+    public function update(Department $department){
+        $department->update([
+            'name'=> request('departmentName'),
+            'description' => request('departmentDescription')
+        ]);
+        // $department->name = request('departmentName');
+        // $department->description = request('departmentDescription');
+        // $department->save();
         return redirect('/departments');
     }
 
     public function store(){
-       $department = new Department();
-       $department->name = request('departmentName');
-       $department->description = request('departmentDescription');
-       $department->save();
+
+        Department::create([
+            'name'=> request('departmentName'),
+            'description' => request('departmentDescription')
+        ]);
+
+    //    $department = new Department();
+    //    $department->name = request('departmentName');
+    //    $department->description = request('departmentDescription');
+    //    $department->save();
        return redirect('/departments');
     }
     // DELETE    | departments/{department}      | departments.destroy | App\Http\Controllers\departmentsController@destroy
-    public function destroy($id){
-        $department = department::findOrFail($id);
+    public function destroy(Department $department){
         $department->delete();
         return redirect('/departments');
+    }
+//GET|HEAD  | departments/{department}      | departments.show    | App\Http\Controllers\departmentsController@show
+    public function show(Department $department){
+        return view('/department.show', compact('department'));
     }
 
 }

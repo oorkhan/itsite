@@ -49,7 +49,7 @@ $createUrl = action('departmentsController@create');
             <tbody>
             @foreach ($departments as $department)
             <tr>
-                <td>{{$department->name}}</td>
+                <td><a href="/departments/{{$department->id}}">{{$department->name}}</a></td>
                 <td><a href="/departments/{{$department->id}}/edit" class="btn btn-warning">Edit</a></td>
                 <td>
                     <form action="/departments/{{$department->id}}" method="POST">
@@ -58,7 +58,7 @@ $createUrl = action('departmentsController@create');
                     <input class="btn btn-danger" type="submit" value="Delete">
                     </form>
                 </td>
-                <td><a href="#" class="btn btn-primary">Details</a></td>
+                <td><a href="/departments/{{$department->id}}" class="btn btn-primary">Details</a></td>
             </tr>
             @endforeach
             </tbody>

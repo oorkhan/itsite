@@ -12,10 +12,10 @@
     <title>@yield('title')</title>
 
     <!-- Bootstrap core CSS-->
-    <link href="{{URL::asset('')}}vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{URL::asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link href="{{URL::asset('')}}vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{URL::asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 
     <!-- Page level plugin CSS-->
     <link href="{{URL::asset('vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
@@ -183,7 +183,7 @@
     <script src="{{URL::asset('vendor/datatables/dataTables.bootstrap4.js')}}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="{{URL::asset('/public/js/sb-admin.min.js')}}"></script>
+    <script src="{{URL::asset('vendor/js/sb-admin.min.js')}}"></script>
     <!-- Demo scripts for this page-->
     <script src="{{URL::asset('js/demo/datatables-demo.js')}}"></script>
     <script src="{{URL::asset('js/demo/chart-area-demo.js')}}"></script>
