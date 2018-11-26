@@ -38,8 +38,8 @@ class departmentsController extends Controller
 
     public function store(){
         request()->validate([
-            'departmentName' => 'required',
-            'departmentDescription' =>'required'
+            'departmentName' => ['required', 'min:3', 'max:50'],
+            'departmentDescription' => ['required', 'min:5', 'max:255']
         ]);
         Department::create([
             'name'=> request('departmentName'),

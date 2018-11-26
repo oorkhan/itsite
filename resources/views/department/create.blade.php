@@ -22,25 +22,26 @@
         {{csrf_field()}}
             <div class="form-group">
                 <label for="departmentNameInput">Department name</label>
-                <input name="departmentName" class="form-control" id="departmentNameInput" type="text" required>
+                <input value="{{old('departmentName')}}" name="departmentName" class="form-control {{$errors->has('departmentName') ? 'border border-danger' : ''}}" id="departmentNameInput" type="text" >
                 
             </div>
             <div class="form-group">
                 <label for="departmentDescription">Describe department </label>
-                <textarea name="departmentDescription" class="form-control" id="departmentDescription" cols="30" rows="10" required></textarea>
+                <textarea name="departmentDescription" class="form-control {{$errors->has('departmentDescription') ? 'border border-danger' : ''}}" id="departmentDescription" cols="30" rows="10" >{{old('departmentDescription')}}</textarea>
             </div>
             <button type="submit" class="btn btn-primary mb-2">Save</button>
         </form>
-    </div>
+        </div>
     @if($errors->any())
-    <div class="col-md-6">
+    <div class="col-md-4 alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <ul>
             @foreach($errors->all() as $error)
             <li>{{$error}}</li>
             @endforeach
         </ul>
     </div>
-    @endif
+    @endif    
 </div>
 
 <!-- /.container-fluid -->
