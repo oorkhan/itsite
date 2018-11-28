@@ -20,6 +20,7 @@
     delete /departments/1 (destroy)
 */
 Route::resource('departments', 'departmentsController');
+Route::resource('employees', 'employeesController');
 Route::get('/','pagesController@index');
 Route::get('/contact','pagesController@contact');
 Route::get('/about','pagesController@about');

@@ -1,11 +1,13 @@
-<?php 
-    $departmentName = $department->name;
+<?php
+use App\Http\Controllers\employeesController;
+$createUrl = action('employeesController@create');
 ?>
 @extends('layout')
-@section('title', "$departmentName")
+@section('title', 'Employees')
 @section('content')
 
 <div class="container-fluid">
+
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
     <li class="breadcrumb-item">
@@ -14,27 +16,18 @@
     <li class="breadcrumb-item active">@yield('title')</li>
     </ol>
 
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fas fa-table"></i>
-                    {{$department->name}} department info.
-                </div>
-                <div class="card-body">
-                    <h2>Description:</h2>
-                    <p>{{$department->description}}</p>
-                </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-            </div>    
-        </div>        
+        <!-- Page Content -->
+    <h1>@yield('title')</h1>
+    <hr>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo a esse, minima tempora, magni quas obcaecati voluptate vero architecto ex maiores quaerat mollitia cum nostrum adipisci, harum perspiciatis assumenda.</p>
+    <div>
+    <a class="btn btn-success mb-2" href="{{$createUrl}}">Add Employee</a>
     </div>
-    @if($department->employees->count())
-<div class="row">
+    <div class="row">
     <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-header">
-            <i class="fas fa-table"></i>{{$department->name}} employees list.
+            <i class="fas fa-table"></i>Employees list.
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -46,6 +39,7 @@
                 <th>Surname</th>
                 <th>Phone</th>
                 <th>Email</th>
+                <th>Department</th>
                 </tr>
                 </thead>
                 <tfoot>
@@ -55,16 +49,18 @@
                 <th>Surname</th>
                 <th>Phone</th>
                 <th>Email</th>
+                <th>Department</th>
                 </tr>
                 </tfoot>
                 <tbody>
-                @foreach($department->employees as $employee)
+                @foreach($employees as $employee)
                 <tr>
                 <td>{{$employee->id}}</td>
                 <td>{{$employee->name}}</td>
                 <td>{{$employee->surname}}</td>
                 <td>{{$employee->phone}}</td>
                 <td>{{$employee->email}}</td>
+                <td>{{$employee->department->name}}</td>
                 </tr>
                 @endforeach         
                 </tbody>
@@ -75,12 +71,8 @@
         </div>    
     </div>        
 </div>
-    @endif    
+  
     <a href="{{ URL::previous() }}">Go Back</a>
 </div>
-
-
-
 <!-- /.container-fluid -->
-
 @endsection

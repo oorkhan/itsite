@@ -22,12 +22,12 @@
         {{csrf_field()}}
             <div class="form-group">
                 <label for="departmentNameInput">Department name</label>
-                <input value="{{old('departmentName')}}" name="departmentName" class="form-control {{$errors->has('departmentName') ? 'border border-danger' : ''}}" id="departmentNameInput" type="text" >
+                <input required value="{{old('departmentName')}}" name="departmentName" class="form-control {{$errors->has('departmentName') ? 'border border-danger' : ''}}" id="departmentNameInput" type="text" >
                 
             </div>
             <div class="form-group">
                 <label for="departmentDescription">Describe department </label>
-                <textarea name="departmentDescription" class="form-control {{$errors->has('departmentDescription') ? 'border border-danger' : ''}}" id="departmentDescription" cols="30" rows="10" >{{old('departmentDescription')}}</textarea>
+                <textarea required name="departmentDescription" class="form-control {{$errors->has('departmentDescription') ? 'border border-danger' : ''}}" id="departmentDescription" cols="30" rows="10" >{{old('departmentDescription')}}</textarea>
             </div>
             <button type="submit" class="btn btn-primary mb-2">Save</button>
         </form>
