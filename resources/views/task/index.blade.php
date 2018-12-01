@@ -1,9 +1,9 @@
 <?php
-use App\Http\Controllers\employeesController;
-$createUrl = action('employeesController@create');
+use App\Http\Controllers\TaskController;
+$createUrl = action('TaskController@create');
 ?>
 @extends('layout')
-@section('title', 'Employees')
+@section('title', 'Tasks')
 @section('content')
 
 <div class="container-fluid">
@@ -21,49 +21,43 @@ $createUrl = action('employeesController@create');
     <hr>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo a esse, minima tempora, magni quas obcaecati voluptate vero architecto ex maiores quaerat mollitia cum nostrum adipisci, harum perspiciatis assumenda.</p>
     <div>
-    <a class="btn btn-success mb-2" href="{{$createUrl}}">Add Employee</a>
+    <a class="btn btn-success mb-2" href="{{$createUrl}}">Add Task</a>
     </div>
     <div class="row">
     <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-header">
-            <i class="fas fa-table"></i>Employees list.
+            <i class="fas fa-table"></i>Tasks list.
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Department</th>
-                <th>Status</th>
+                    <th>id</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Employee</th>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Department</th>
-                <th>Status</th>
+                    <th>id</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Employee</th>
                 </tr>
                 </tfoot>
                 <tbody>
-                @foreach($employees as $employee)
+                @foreach($tasks as $task)
                 <tr>
-                <td><a href="employees/{{$employee->id}}">{{$employee->id}}</a></td>
-                <td><a href="employees/{{$employee->id}}">{{$employee->name}}</a></td>
-                <td><a href="employees/{{$employee->id}}">{{$employee->surname}}</a></td>
-                <td>{{$employee->phone}}</td>
-                <td>{{$employee->email}}</td>
-                <td>{{$employee->department->name}}</td>
-                <td><span class="{{$employee->status == 1 ? 'text-success' : 'text-danger'}}">{{$employee->status == 1 ? 'Active' : 'Inactive'}}</span></td>
+                    <td><a href="tasks/{{$task->id}}">{{$task->id}}</a></td>
+                    <td><a href="tasks/{{$task->id}}">{{$task->title}}</a></td>
+                    <td><a href="tasks/{{$task->id}}">{{$task->description}}</a></td>
+                    <td><span class="{{$task->status == 0 ? 'text-warning' : 'text-success'}}">{{$task->status == 0 ? 'Inprogress' : 'Completed'}}</span></td>
+                    <td>{{$task->employee->name}} {{$task->employee->surname}}</td>
                 </tr>
                 @endforeach         
                 </tbody>

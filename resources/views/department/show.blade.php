@@ -76,11 +76,11 @@
     </div>        
 </div>
     @endif    
-    <a href="{{ URL::previous() }}">Go Back</a>
+<a href="{{ URL::previous() }}" class="btn btn-primary">Go Back</a>
 </div>
 
 
-
+<a href="{{ URL::previous() }}" class="btn btn-outline-dark">BACK</a>
 <!-- /.container-fluid -->
 
 @endsection

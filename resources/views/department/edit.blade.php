@@ -15,7 +15,7 @@
     <!-- Page Content -->
 <h1>@yield('title')</h1>
 <hr>
-<p>Edit departments data.</p>
+<p>Edit departments data or <a href="{{ URL::previous() }}" class="btn btn-outline-dark btn-sm">go back</a></p>
 <div class="row">
     <div class="col-md-6">
         <form method="POST" action="/departments/{{$department->id}}">
@@ -29,11 +29,11 @@
                 <label for="departmentDescription">Describe department </label>
                 <textarea name="departmentDescription" class="form-control" id="departmentDescription" cols="30" rows="10">{{$department->description}}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Update</button>
+            <button type="submit" class="btn btn-warning mb-2">Update</button>
         </form>
     </div>
 </div>
 
 <!-- /.container-fluid -->
-<a href="{{ URL::previous() }}">Go Back</a>
+<a href="{{ URL::previous() }}" class="btn btn-primary">Go Back</a>
 @endsection

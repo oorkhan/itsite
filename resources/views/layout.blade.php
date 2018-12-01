@@ -110,6 +110,7 @@
             <a class="dropdown-item" href="/">Home</a>
             <a class="dropdown-item" href="/departments">Departments</a>
             <a class="dropdown-item" href="/employees">Employees</a>
+            <a class="dropdown-item" href="/tasks">Tasks</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Other Pages:</h6>
             <a class="dropdown-item" href="404.html">404 Page</a>

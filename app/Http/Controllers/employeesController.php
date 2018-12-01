@@ -62,9 +62,9 @@ class employeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Employee $employee)
     {
-        //
+        return view('employee.show', compact('employee'));
     }
 
     /**
@@ -73,9 +73,10 @@ class employeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Employee $employee)
     {
-        //
+        $departments = Department::all();
+        return view('employee.edit', compact('employee'), compact('departments'));
     }
 
     /**
@@ -85,9 +86,17 @@ class employeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Employee $employee)
     {
-        //
+        $employee->update([
+            'name' => request('employeeNameInput'),
+            'surname' => request('employeeSurnameInput'),
+            'phone' => request('phone'),
+            'email' => request('email'),
+            'department_id' => request('department'),
+            'status' => request('status'),
+        ]);
+        return redirect('/employees');
     }
 
     /**
@@ -96,8 +105,9 @@ class employeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+        return redirect('/employees');
     }
 }

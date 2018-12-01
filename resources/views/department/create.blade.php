@@ -15,7 +15,7 @@
     <!-- Page Content -->
 <h1>@yield('title')</h1>
 <hr>
-<p>Add departments of your organization to database.</p>
+<p>Add departments of your organization to database or <a href="{{ URL::previous() }}" class="btn btn-outline-dark btn-sm">go back</a></p>
 <div class="row">
     <div class="col-md-6">
         <form method="POST" action="/departments">
@@ -29,7 +29,7 @@
                 <label for="departmentDescription">Describe department </label>
                 <textarea required name="departmentDescription" class="form-control {{$errors->has('departmentDescription') ? 'border border-danger' : ''}}" id="departmentDescription" cols="30" rows="10" >{{old('departmentDescription')}}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Save</button>
+            <button type="submit" class="btn btn-warning mb-2">Save</button>
         </form>
         </div>
     @if($errors->any())
@@ -45,5 +45,4 @@
 </div>
 
 <!-- /.container-fluid -->
-<a href="{{ URL::previous() }}">Go Back</a>
 @endsection

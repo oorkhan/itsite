@@ -10,4 +10,7 @@ class Employee extends Model
     public function department(){
         return $this->belongsTo(Department::class);
     }
+     public function tasks(){
+        return $this->hasMany(Task::class);
+    }
 }

@@ -15,7 +15,7 @@
     <!-- Page Content -->
 <h1>@yield('title')</h1>
 <hr>
-<p>Add employee to database.</p>
+<p>Add employee to database or <a href="{{ URL::previous() }}" class="btn btn-outline-dark btn-sm">go back</a></p>
 <div class="row">
     <div class="col-md-6">
         <form method="POST" action="/employees">
@@ -51,7 +51,7 @@
                     <option value="0">Inactive</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Save</button>
+            <button type="submit" class="btn btn-warning mb-2">Save</button>
         </form>
         </div>
     @if($errors->any())
@@ -67,5 +67,4 @@
 </div>
 
 <!-- /.container-fluid -->
-<a href="{{ URL::previous() }}">Go Back</a>
 @endsection
