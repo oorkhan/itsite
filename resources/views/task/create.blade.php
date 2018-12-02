@@ -18,7 +18,7 @@
 <p>Add task to database or <a href="{{ URL::previous() }}" class="btn btn-outline-dark btn-sm">go back</a></p>
 <div class="row">
     <div class="col-md-6">
-        <form method="POST" action="/task">
+        <form method="POST" action="/tasks">
         {{csrf_field()}}
             <div class="form-group">
                 <label for="title">Title</label>
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <input placeholder="description" required value="{{old('description')}}" name="description" class="form-control {{$errors->has('description') ? 'border border-danger' : ''}}" id="description" type="text" >
+                <textarea required name="description" class="form-control {{$errors->has('description') ? 'border border-danger' : ''}}" id="description" >{{old('description')}}</textarea>
             </div>
             <div class="form-group">
                 <label for="employee">Employee (Change with search-select box)</label>

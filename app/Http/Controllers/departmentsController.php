@@ -27,8 +27,8 @@ class departmentsController extends Controller
     // PUT|PATCH | departments/{department}      | departments.update  | App\Http\Controllers\departmentsController@update
     public function update(Department $department){
         $department->update([
-            'name'=> request('departmentName'),
-            'description' => request('departmentDescription')
+            'name'=> request('name'),
+            'description' => request('description')
         ]);
         // $department->name = request('departmentName');
         // $department->description = request('departmentDescription');
@@ -38,12 +38,12 @@ class departmentsController extends Controller
 
     public function store(){
         request()->validate([
-            'departmentName' => ['required', 'min:3', 'max:50'],
-            'departmentDescription' => ['required', 'min:5', 'max:255']
+            'name' => ['required', 'min:3', 'max:50'],
+            'description' => ['required', 'min:5', 'max:255']
         ]);
         Department::create([
-            'name'=> request('departmentName'),
-            'description' => request('departmentDescription')
+            'name'=> request('name'),
+            'description' => request('description')
         ]);
 
     //    $department = new Department();

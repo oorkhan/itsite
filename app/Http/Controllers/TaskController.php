@@ -39,7 +39,17 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'title'=>['required', 'string', 'min:5'],
+            'description'=>['required', 'min:5'],
+            'employee'=>['integer']
+             ]);
+        Task::create([
+            'title'=>request('title'),
+            'description'=>request('description'),
+            'employee_id'=>request('employee')
+        ]);
+        return redirect('\tasks');
     }
 
     /**
@@ -50,7 +60,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        return view('task.show', compact('task'));
     }
 
     /**
@@ -61,7 +71,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        $employees = Employee::all();
+        return view('task.edit', compact('task'), compact('employees'));
     }
 
     /**
@@ -71,9 +82,14 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
-    {
-        //
+    public function update(Task $task)
+    {         
+        validate([
+
+        ]);
+        $task->update([
+            
+        ]);    
     }
 
     /**

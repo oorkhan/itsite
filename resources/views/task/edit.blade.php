@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Edit employee')
+@section('title', 'Edit task')
 @section('content')
 
 <div class="container-fluid">
@@ -15,41 +15,35 @@
     <!-- Page Content -->
 <h1>@yield('title')</h1>
 <hr>
-<p>Edit employee data or <a href="{{ URL::previous() }}" class="btn btn-outline-dark btn-sm">go back</a></p>
+<p>Edit task data or <a href="{{ URL::previous() }}" class="btn btn-outline-dark btn-sm">go back</a></p>
 <div class="row">
     <div class="col-md-6">
-        <form method="POST" action="/employees/{{$employee->id}}">
+        <form method="POST" action="/tasks/{{$task->id}}">
         {{method_field('PATCH')}}
         {{csrf_field()}}
             <div class="form-group">
-                <label for="employeeNameInput">Name</label>
-                <input name="employeeNameInput" class="form-control" id="employeeNameInput" type="text" value="{{$employee->name}}">
+                <label for="title">Title</label>
+                <input name="title" class="form-control" id="title" type="text" value="{{$task->title}}">
             </div>
+
             <div class="form-group">
-                <label for="employeeSurnameInput">Surname</label>
-                <input name="employeeSurnameInput" class="form-control" id="employeeSurnameInput" type="text" value="{{$employee->surname}}">
+                <label for="description">Describe task </label>
+                <textarea required name="description" class="form-control {{$errors->has('description') ? 'border border-danger' : ''}}"  cols="30" rows="10" >{{$task->description}}</textarea>
             </div>
+            
             <div class="form-group">
-                <label for="phone">Phone</label>
-                <input name="phone" class="form-control" id="phone" type="text" value="{{$employee->phone}}">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input name="email" class="form-control" id="email" type="text" value="{{$employee->email}}">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Department</label>
-                <select name="department" class="form-control" id="exampleFormControlSelect1">
-                    @foreach($departments as $department)
-                    <option value="{{$department->id}}" class="{{$department->id == $employee->department_id ? 'selected' : ''}}">{{$department->name}}</option>
+                <label for="exampleFormControlSelect1">Employee</label>
+                <select name="employee" class="form-control" id="exampleFormControlSelect1">
+                    @foreach($employees as $employee)
+                    <option value="{{$employee->id}}" class="{{$employee->id == $task->employee_id ? 'selected' : ''}}">{{$employee->name}}</option>
                     @endforeach
                 </select>
             </div>
              <div class="form-group">
                 <label for="exampleFormControlSelect1">Status</label>
                 <select name="status" class="form-control" id="exampleFormControlSelect1">
-                    <option value="1" {{$employee->status == 1 ? 'selected' : ''}}>Active</option>
-                    <option value="0" {{$employee->status == 0 ? 'selected' : ''}}>Inactive</option>
+                    <option value="1" {{$task->completed == 1 ? 'selected' : ''}}>Completed</option>
+                    <option value="0" {{$task->completed == 0 ? 'selected' : ''}}>In progress</option>
                 </select>
             </div>
                 <button type="submit" class="btn btn-warning mb-2">Update</button>
