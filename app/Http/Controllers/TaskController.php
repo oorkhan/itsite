@@ -6,6 +6,7 @@ use App\Task;
 use App\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class TaskController extends Controller
 {
@@ -40,15 +41,16 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'title'=>['required', 'string', 'min:5'],
-            'description'=>['required', 'min:5'],
-            'employee'=>['integer']
+            'title'=>'required|string|min:5',
+            'description'=>'required|min:5',
+            'employee'=>'integer|exists:employees,id',
              ]);
         Task::create([
             'title'=>request('title'),
             'description'=>request('description'),
-            'employee_id'=>request('employee')
+            'employee_id'=>request('employee'),
         ]);
+        Session::flash('success' , 'Task has been added.');
         return redirect('\tasks');
     }
 
@@ -84,12 +86,20 @@ class TaskController extends Controller
      */
     public function update(Task $task)
     {         
-        validate([
-
+        request()->validate([
+            'title' => 'required|min:5',
+            'description' => 'required|min:5',
+            'employee'=> 'exists:employees,id',
+            'status'=>'boolean',
         ]);
         $task->update([
-            
-        ]);    
+            'title' => request('title'),
+            'description' => request('description'),
+            'employee_id' => request('employee'),
+            'completed' => request('status'),
+        ]);
+        Session::flash('success' , 'Task has been updated.');
+        return redirect('/tasks');    
     }
 
     /**
@@ -100,6 +110,15 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        Session::flash('success', 'The task has been deleted.');
+        return redirect('/tasks');
+    }
+    public function completeTask(Task $task){
+        $task->update([
+            'completed' => request()->has('completed')
+        ]);
+        Session::flash('success', 'You have updated task.');
+        return redirect('/tasks');
     }
 }

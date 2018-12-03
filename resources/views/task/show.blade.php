@@ -13,13 +13,13 @@
         <div class="card mb-3">
             <div class="card-header">
             <i class="fas fa-table"></i> Task id: {{$task->id}}. {{$task->title}}.
-            <form method="POST" action="">
+            <form method="POST" action="\completetask\{{$task->id}}">
                 {{method_field('PATCH')}}
                 {{csrf_field()}}
                 <div class="checkbox">
-                <label for="completed"><input type="checkbox" name="completed" onChange="this.form.submit()"> Complete this task.</label>
+                <label for="completed"><input type="checkbox" name="completed" onChange="this.form.submit()" {{$task->completed == 1 ? 'checked' : ''}}> Complete this task.</label>
                 </div>
-            <form>    
+            </form>    
             </div>
             <div class="card-body">
                 <p>Employee: <a href="/employees/{{$task->employee_id}}">{{$task->employee->name}} {{$task->employee->surname}}</a></p>
@@ -33,8 +33,8 @@
         <a href="{{ $task->id }}/edit" class="btn btn-warning">EDIT</a>
         <a href="#" onclick="if(confirm('Are you sure?')){$('#deleteform').submit()}" class="btn btn-danger">DELETE</a>
         <form id="deleteform" action="{{route('tasks.destroy', $task->id)}}" method="POST">
-            {{ csrf_field() }}
-            {{ method_field('DELETE') }}            
+            @csrf
+            @method('DELETE')           
         </form>
     </div> 
 </div>

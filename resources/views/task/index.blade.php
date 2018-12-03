@@ -19,6 +19,7 @@ $createUrl = action('TaskController@create');
         <!-- Page Content -->
     <h1>@yield('title')</h1>
     <hr>
+    @include('/messages')
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo a esse, minima tempora, magni quas obcaecati voluptate vero architecto ex maiores quaerat mollitia cum nostrum adipisci, harum perspiciatis assumenda.</p>
     <div>
     <a class="btn btn-success mb-2" href="{{$createUrl}}">Add Task</a>
@@ -56,8 +57,8 @@ $createUrl = action('TaskController@create');
                     <td><a href="tasks/{{$task->id}}">{{$task->id}}</a></td>
                     <td><a href="tasks/{{$task->id}}">{{$task->title}}</a></td>
                     <td><a href="tasks/{{$task->id}}">{{$task->description}}</a></td>
-                    <td><span class="{{$task->status == 0 ? 'text-warning' : 'text-success'}}">{{$task->status == 0 ? 'Inprogress' : 'Completed'}}</span></td>
-                    <td>{{$task->employee->name}} {{$task->employee->surname}}</td>
+                    <td><span class="{{$task->completed == 0 ? 'text-warning' : 'text-success'}}">{{$task->completed == 0 ? 'Inprogress' : 'Completed'}}</span></td>
+                    <td><a href="/employees/{{$task->employee->id}}">{{$task->employee->name}} {{$task->employee->surname}}</a></td>
                 </tr>
                 @endforeach         
                 </tbody>

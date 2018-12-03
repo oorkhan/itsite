@@ -35,12 +35,12 @@
                 <label for="exampleFormControlSelect1">Employee</label>
                 <select name="employee" class="form-control" id="exampleFormControlSelect1">
                     @foreach($employees as $employee)
-                    <option value="{{$employee->id}}" class="{{$employee->id == $task->employee_id ? 'selected' : ''}}">{{$employee->name}}</option>
+                    <option value="{{$employee->id}}" {{$employee->id == $task->employee_id ? 'selected' : ''}} >{{$employee->name}} {{$employee->surname}}</option>
                     @endforeach
                 </select>
             </div>
              <div class="form-group">
-                <label for="exampleFormControlSelect1">Status</label>
+                <label for="status">Status</label>
                 <select name="status" class="form-control" id="exampleFormControlSelect1">
                     <option value="1" {{$task->completed == 1 ? 'selected' : ''}}>Completed</option>
                     <option value="0" {{$task->completed == 0 ? 'selected' : ''}}>In progress</option>
