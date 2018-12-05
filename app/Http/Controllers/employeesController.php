@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Department;
+use Illuminate\Support\Facades\Session;
+use App\Room;
 use App\Employee;
+use App\Department;
 
 class employeesController extends Controller
 {
@@ -27,8 +29,9 @@ class employeesController extends Controller
      */
     public function create()
     {
+        $rooms = Room::all();
         $departments = Department::all();
-        return view('employee.create', compact('departments'));
+        return view('employee.create', compact('departments'),compact('rooms'));
     }
 
     /**
@@ -40,10 +43,12 @@ class employeesController extends Controller
     public function store(Request $request)
     {
        request()->validate([
-            'employeeName' => ['required', 'min:3', 'max:50'],
-            'employeeSurname' => ['required', 'min:3', 'max:50'],
-            'email' => ['required', 'email'],
-            'phone' => ['required', 'min:3', 'max:50']
+            'employeeName' => 'required|min:3|max:50',
+            'employeeSurname' => 'required|min:3|max:50',
+            'email' => 'required',
+            'phone' => 'required|min:3|max:50',
+            'department' => 'integer|exists:departments,id',
+            'room' => 'integer|exists:rooms,id',
         ]);
         Employee::create([
             'name'=> request('employeeName'),
@@ -51,7 +56,8 @@ class employeesController extends Controller
             'email' => request('email'),
             'phone' => request('phone'),
             'department_id' => request('department'),
-            'status' => request('status')
+            'room_id' => request('room'),
+            'status' => request('status'),
         ]);
         return redirect('/employees');
     }

@@ -44,6 +44,14 @@
                     @endforeach
                 </select>
             </div>
+             <div class="form-group">
+                <label for="room">Room</label>
+                <select name="room" class="form-control" id="room">
+                    @foreach($rooms as $room)
+                    <option value="{{$room->id}}">{{$room->name}}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Status</label>
                 <select name="status" class="form-control" id="exampleFormControlSelect1">

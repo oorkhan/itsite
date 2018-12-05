@@ -24,6 +24,7 @@ Route::resource('employees', 'employeesController');
 Route::resource('tasks', 'TaskController');
 Route::patch('completetask/{task}', 'TaskController@completeTask');
 Route::resource('projects', 'ProjectController');
+Route::resource('rooms', 'RoomController');
 Route::get('/','pagesController@index');
 Route::get('/contact','pagesController@contact');
 Route::get('/about','pagesController@about');
