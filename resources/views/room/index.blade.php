@@ -59,9 +59,9 @@ $createUrl = action('RoomController@create');
                 @foreach($rooms as $room)
                 <tr>
                     <td><a href="#">{{$room->id}}</a></td>
-                    <td><a href="#">{{$room->name}}</a></td>
-                    <td><a href="#">{{$room->description}}</a></td>
-                    <td><a href="#">{{$room->department->name}}</a></td>
+                    <td><a href="{{route('rooms.show', $room->id)}}">{{$room->name}}</a></td>
+                    <td>{{$room->description}}</td>
+                    <td><a href="{{route('departments.show', $room->department->id)}}">{{$room->department->name}}</a></td>
                     <td><a href="#">{{$room->type}}</a></td>
                     <td><a href="#">{{$room->number_of_seats}}</a></td>
                     <td><a href="#">{{$room->employee->count()}}</a></td> <!--count employees in the room-->

@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Edit task')
+@section('title', 'Edit room')
 @section('content')
 
 <div class="container-fluid">
@@ -15,42 +15,54 @@
     <!-- Page Content -->
 <h1>@yield('title')</h1>
 <hr>
-<p>Edit task data or <a href="{{ URL::previous() }}" class="btn btn-outline-dark btn-sm">go back</a></p>
+<p>Edit room information or <a href="{{ URL::previous() }}" class="btn btn-outline-dark btn-sm">go back</a></p>
 <div class="row">
     <div class="col-md-6">
-        <form method="POST" action="/tasks/{{$task->id}}">
-        {{method_field('PATCH')}}
-        {{csrf_field()}}
+        <form method="POST" action="/rooms/{{$room->id}}">
+        @csrf
+        @method('PATCH')
             <div class="form-group">
-                <label for="title">Title</label>
-                <input name="title" class="form-control" id="title" type="text" value="{{$task->title}}">
+                <label for="name">Name</label>
+                <input placeholder="name" required value="{{$room->name}}" name="name" class="form-control {{$errors->has('name') ? 'border border-danger' : ''}}" id="name" type="text" >
             </div>
-
             <div class="form-group">
-                <label for="description">Describe task </label>
-                <textarea required name="description" class="form-control {{$errors->has('description') ? 'border border-danger' : ''}}"  cols="30" rows="10" >{{$task->description}}</textarea>
+                <label for="description">Description</label>
+                <textarea required name="description" class="form-control {{$errors->has('description') ? 'border border-danger' : ''}}" id="description" >{{$room->description}}</textarea>
             </div>
-            
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Employee</label>
-                <select name="employee" class="form-control" id="exampleFormControlSelect1">
-                    @foreach($employees as $employee)
-                    <option value="{{$employee->id}}" {{$employee->id == $task->employee_id ? 'selected' : ''}} >{{$employee->name}} {{$employee->surname}}</option>
+                <label for="phone">Phone number</label>
+                <input type="text" value="{{$room->phone}}" required name="phone" class="form-control {{$errors->has('phone') ? 'border border-danger' : ''}}" id="phone" >
+            </div>
+            <div class="form-group">
+                <label for="department">Department (Change with search-select box)</label>
+                <select name="department" class="form-control" id="department">
+                    @foreach($departments as $department)
+                    <option value="{{$department->id}}" {{$department->id == $room->department->id ? 'selected' : ''}}>{{$department->name}}</option>
                     @endforeach
                 </select>
             </div>
-             <div class="form-group">
-                <label for="status">Status</label>
-                <select name="status" class="form-control" id="exampleFormControlSelect1">
-                    <option value="1" {{$task->completed == 1 ? 'selected' : ''}}>Completed</option>
-                    <option value="0" {{$task->completed == 0 ? 'selected' : ''}}>In progress</option>
+            <div class="form-group">
+                <label for="type">Type</label>
+                <select name="type" class="form-control" id="type">
+                    <option value="classroom" {{$room->type == 'classroom' ? 'selected' : ''}}>classroom</option>
+                    <option value="office" {{$room->type == 'office' ? 'selected' : ''}}>office</option>
                 </select>
             </div>
-                <button type="submit" class="btn btn-warning mb-2">Update</button>
-            </div>            
+            <div class="form-group">
+                <label for="number_of_seats">Number of seats</label>
+                <input name="number_of_seats" class="form-control" type="number" value="{{$room->number_of_seats}}" id="number_of_seats">
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select name="status" class="form-control" id="status">
+                    <option value="open" {{$room->status == 'open' ? 'selected' : ''}}>open</option>
+                    <option value="closed" {{$room->status == 'closed' ? 'selected' : ''}}>closed</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-warning mb-2">Save</button>
         </form>
-    </div>
-     @if($errors->any())
+        </div>
+    @if($errors->any())
     <div class="col-md-4 alert alert-danger">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <ul>
@@ -59,7 +71,7 @@
             @endforeach
         </ul>
     </div>
-    @endif  
+    @endif    
 </div>
 
 <!-- /.container-fluid -->

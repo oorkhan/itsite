@@ -46,7 +46,7 @@ class RoomController extends Controller
             'description'=>'required|min:5',
             'department'=>'integer|exists:departments,id',
             'type' => 'string|required',
-            'number_of_seats' => 'integer|not_in:0|regex:/^[1-9][0-9]+/',
+            'number_of_seats' => 'integer|not_in:0', //find regex for positive numbers
             'status' => 'string|required',
              ]);
         Room::create([
@@ -56,6 +56,7 @@ class RoomController extends Controller
             'type' => request('type'),
             'number_of_seats' => request('number_of_seats'),
             'status' => request('status'),
+            'phone' => request('phone') //find reqex for phone
         ]);
         Session::flash('success' , 'Room has been added.');
         return redirect('\rooms');
@@ -69,7 +70,7 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        //
+        return view('room.show', compact('room'));
     }
 
     /**
@@ -80,7 +81,8 @@ class RoomController extends Controller
      */
     public function edit(Room $room)
     {
-        //
+        $departments = Department::all();
+        return view('room.edit', compact('departments'), compact('room'));
     }
 
     /**
@@ -92,7 +94,25 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room)
     {
-        //
+        request()->validate([
+            'name'=>'required|string|min:2',
+            'description'=>'required|min:5',
+            'department'=>'integer|exists:departments,id',
+            'type' => 'string|required',
+            'number_of_seats' => 'integer|not_in:0', //find regex for positive numbers
+            'status' => 'string|required',
+             ]);
+        $room->update([
+            'name'=>request('name'),
+            'description'=>request('description'),
+            'department_id'=>request('department'),
+            'type' => request('type'),
+            'number_of_seats' => request('number_of_seats'),
+            'status' => request('status'),
+            'phone' => request('phone') //find reqex for phone
+        ]);
+        Session::flash('success' , 'Room information has been updated.');
+        return redirect(route('rooms.show', $room->id));
     }
 
     /**

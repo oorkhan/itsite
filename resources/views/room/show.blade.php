@@ -1,46 +1,92 @@
-<?php 
-    $task_id = $task->id;
+<?php
+    $roomName = 'Room '.$room->name;
 ?>
 @extends('layout')
-@section('title', "Task ID $task_id")
+@section('title', $roomName)
 @section('content')
 
 <div class="container-fluid">
-    <!-- Breadcrumbs-->
     
-<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i> Room: {{$room->name}}. 
+                </div>
+                <div class="card-body">
+                    <div class="col-8"> <!--Room details-->
+                        <div>Room type: {{$room->type}}</div>
+                        <div>Phone number: {{$room->phone}}</div>
+                        <div>
+                        <h3>Room description:</h3> 
+                            <p>{{$room->description}}</p>
+                        </div>
+                        <div>Campus: Campus no db</div>
+                        <div>Room status: {{$room->status}}</div>
+                        <div>Number of seats: {{$room->number_of_seats}}</div>
+                    </div><!--end Room details-->
+                    <div class="col-4"><!--buttons-->
+                        <a href="{{ URL::previous() }}" class="btn btn-outline-dark">BACK</a> 
+                        <a href="{{ $room->id }}/edit" class="btn btn-warning">EDIT</a>
+                        <a href="#" onclick="if(confirm('Are you sure?')){$('#deleteform').submit()}" class="btn btn-danger">DELETE</a>
+                        <form id="deleteform" action="{{route('rooms.destroy', $room->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')           
+                        </form>
+                    </div><!--end buttons-->
+                </div>
+            </div>    
+        </div>
+    </div> <!-- end row -->
+        @if($room->employee->count())
+<div class="row"><!--employee list row-->
     <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-header">
-            <i class="fas fa-table"></i> Task id: {{$task->id}}. {{$task->title}}.
-            <form method="POST" action="\completetask\{{$task->id}}">
-                {{method_field('PATCH')}}
-                {{csrf_field()}}
-                <div class="checkbox">
-                <label for="completed"><input type="checkbox" name="completed" onChange="this.form.submit()" {{$task->completed == 1 ? 'checked' : ''}}> Complete this task.</label>
-                </div>
-            </form>    
+            <i class="fas fa-table"></i>{{$room->name}} employees list.
             </div>
             <div class="card-body">
-                <p>Employee: <a href="/employees/{{$task->employee_id}}">{{$task->employee->name}} {{$task->employee->surname}}</a></p>
-                <p>{{$task->description}}</p>
+                <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Phone</th>
+                <th>Email</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Phone</th>
+                <th>Email</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                @foreach($room->employee as $emp)
+                <tr>
+                <td>{{$emp->id}}</td>
+                <td><a href="{{route('employees.show', $emp->id)}}">{{$emp->name}}</a></td>
+                <td><a href="{{route('employees.show', $emp->id)}}">{{$emp->surname}}</a></td>
+                <td>{{$emp->phone}}</td>
+                <td>{{$emp->email}}</td>
+                </tr>
+                @endforeach         
+                </tbody>
+                </table>
             </div>
         </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>    
-    </div>
-    <div class="col-md-12">
-        <a href="{{ URL::previous() }}" class="btn btn-outline-dark">BACK</a> 
-        <a href="{{ $task->id }}/edit" class="btn btn-warning">EDIT</a>
-        <a href="#" onclick="if(confirm('Are you sure?')){$('#deleteform').submit()}" class="btn btn-danger">DELETE</a>
-        <form id="deleteform" action="{{route('tasks.destroy', $task->id)}}" method="POST">
-            @csrf
-            @method('DELETE')           
-        </form>
-    </div> 
-</div>
+    </div>        
+</div><!-- end employee list row-->
+@endif
+<h1> Equipment list below</h1> 
 
-
-
-<!-- /.container-fluid -->
+</div><!-- /.container-fluid -->
 
 @endsection

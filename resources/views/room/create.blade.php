@@ -29,9 +29,13 @@
                 <textarea required name="description" class="form-control {{$errors->has('description') ? 'border border-danger' : ''}}" id="description" >{{old('description')}}</textarea>
             </div>
             <div class="form-group">
+                <label for="phone">Phone number</label>
+                <input type="text" value="{{old('phone')}}" required name="phone" class="form-control {{$errors->has('phone') ? 'border border-danger' : ''}}" id="phone" >
+            </div>
+            <div class="form-group">
                 <label for="department">Department (Change with search-select box)</label>
                 <select name="department" class="form-control" id="department">
-                    <option value="" selected>Choose here</option>
+                    <option value="" selected>Choose department</option>
                     @foreach($departments as $department)
                     <option value="{{$department->id}}">{{$department->name}}</option>
                     @endforeach
@@ -40,7 +44,7 @@
             <div class="form-group">
                 <label for="type">Type</label>
                 <select name="type" class="form-control" id="type">
-                    <option value="" selected>Choose here</option>
+                    <option value="" selected>Choose room type</option>
                     <option value="classroom">classroom</option>
                     <option value="office">office</option>
                 </select>
