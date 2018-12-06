@@ -111,6 +111,7 @@
             <a class="dropdown-item" href="/departments">Departments</a>
             <a class="dropdown-item" href="/employees">Employees</a>
             <a class="dropdown-item" href="/tasks">Tasks</a>
+            <a class="dropdown-item" href="/rooms">Rooms</a>
             <a class="dropdown-item" href="/projects">Projects</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Other Pages:</h6>

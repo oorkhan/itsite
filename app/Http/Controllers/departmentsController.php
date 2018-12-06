@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Room;
+use App\Employee;
 use App\Department;
 
 use Illuminate\Http\Request;

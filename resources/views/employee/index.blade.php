@@ -41,6 +41,7 @@ $createUrl = action('employeesController@create');
                 <th>Email</th>
                 <th>Department</th>
                 <th>Status</th>
+                <th>Room</th>
                 </tr>
                 </thead>
                 <tfoot>
@@ -52,6 +53,7 @@ $createUrl = action('employeesController@create');
                 <th>Email</th>
                 <th>Department</th>
                 <th>Status</th>
+                <th>Room</th>
                 </tr>
                 </tfoot>
                 <tbody>
@@ -64,6 +66,7 @@ $createUrl = action('employeesController@create');
                 <td>{{$employee->email}}</td>
                 <td>{{$employee->department->name}}</td>
                 <td><span class="{{$employee->status == 1 ? 'text-success' : 'text-danger'}}">{{$employee->status == 1 ? 'Active' : 'Inactive'}}</span></td>
+                <td>{{$employee->room->name}}</td>
                 </tr>
                 @endforeach         
                 </tbody>
