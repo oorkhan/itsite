@@ -8,8 +8,13 @@ use App\Project;
 
 class ProjectController extends Controller
 {
+    //authorize to use controller methods. can put in routes too
+    public function __construct(){
+        $this->middleware('auth'); // allow only autorized users to controller methods / $this->middleware('auth')->only(['store', 'update']) - only allows use of methods except()
+    }
+
     public function index(){
-        $projects = Project::all();
+        $projects = Project::where('owner_id', auth()->id())->get();
         return view('project.index', compact('projects'));
     }
 
@@ -21,6 +26,7 @@ class ProjectController extends Controller
             'title' => 'required|min:3',
             'description' =>'required|min:3',
         ]);
+        $attributes['owner_id'] = auth()->id(); 
         Project::create($attributes);
         return redirect('/projects');
     }
@@ -41,6 +47,7 @@ class ProjectController extends Controller
         return redirect('/projects');
     }
     public function show(Project $project){
+        $this->authorize('update', $project);
         return view('project.show',compact('project'));
     }
 }
