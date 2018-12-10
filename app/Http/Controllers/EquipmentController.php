@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Equipment;
+use App\EquipmentType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -26,7 +27,8 @@ class EquipmentController extends Controller
      */
     public function create()
     {
-        return view('equipment.create');
+        $types = EquipmentType::all();
+        return view('equipment.create', compact('types'));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\Mail\ProjectCreated;
 
 class ProjectController extends Controller
 {
@@ -27,7 +28,10 @@ class ProjectController extends Controller
             'description' =>'required|min:3',
         ]);
         $attributes['owner_id'] = auth()->id(); 
-        Project::create($attributes);
+        $project = Project::create($attributes);
+        \Mail::to('o.orkhan@gmail.com')->send(
+            new ProjectCreated($project)
+        );
         return redirect('/projects');
     }
     public function edit(Project $project){

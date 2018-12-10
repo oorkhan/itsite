@@ -21,15 +21,13 @@ $createUrl = action('EquipmentTypeController@create');
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                <th>id</th>
                 <th>Equipment type</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($types as $type)
                 <tr>
-                    <td>{{$type->id}}</td>
-                    <td><a href="#">{{$type->name}}</a></td>
+                    <td><a href="{{route('equipment_type.show', $type->id)}}">{{$type->name}}</a></td>
                 </tr> 
                 @endforeach
                 </tbody>

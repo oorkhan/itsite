@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\EquipmentType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\ProjectCreated;
 
 class EquipmentTypeController extends Controller
 {
@@ -41,6 +42,9 @@ class EquipmentTypeController extends Controller
             'name' => 'required|min:3',
         ]);
         $equipmentType->addType($attributes);
+         \Mail::to('o.orkhan@gmail.com')->send(
+            new ProjectCreated()
+        );
         return redirect('/equipment_type');
     }
 
