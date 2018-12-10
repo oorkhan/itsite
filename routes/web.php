@@ -19,11 +19,13 @@
     patch /departments/1/edit (update)
     delete /departments/1 (destroy)
 */
+Route::resource('equipment_type','EquipmentTypeController');
 Route::resource('departments', 'departmentsController');
 Route::resource('employees', 'employeesController');
 Route::resource('tasks', 'TaskController');
 Route::patch('completetask/{task}', 'TaskController@completeTask');
 Route::resource('projects', 'ProjectController');
+Route::resource('equipments', 'EquipmentController');
 Route::patch('/jobs/{job}', 'ProjectJobsController@update');
 Route::post('/projects/{project}/jobs', 'ProjectJobsController@store');
 Route::resource('rooms', 'RoomController');

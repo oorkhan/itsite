@@ -148,6 +148,8 @@
             <a class="dropdown-item" href="/tasks">Tasks</a>
             <a class="dropdown-item" href="/rooms">Rooms</a>
             <a class="dropdown-item" href="/projects">Projects</a>
+            <a class="dropdown-item" href="{{route('equipment_type.index')}}">Equipment types</a>
+            <a class="dropdown-item" href="{{route('equipments.index')}}">Equipment</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Other Pages:</h6>
             <a class="dropdown-item" href="404.html">404 Page</a>
