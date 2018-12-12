@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Equipment;
-use App\EquipmentType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Room;
+use App\Employee;
+use App\Equipment;
+use App\EquipmentType;
 
 class EquipmentController extends Controller
 {
@@ -27,8 +29,10 @@ class EquipmentController extends Controller
      */
     public function create()
     {
+        $employees = Employee::all();
+        $rooms = Room::all();
         $types = EquipmentType::all();
-        return view('equipment.create', compact('types'));
+        return view('equipment.create', compact('employees', 'types', 'rooms'));
     }
 
     /**
