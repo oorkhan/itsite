@@ -33,7 +33,16 @@
                 <input type="text" value="{{old('phone')}}" required name="phone" class="form-control {{$errors->has('phone') ? 'border border-danger' : ''}}" id="phone" >
             </div>
             <div class="form-group">
-                <label for="department">Department (Change with search-select box)</label>
+                <label for="campus_id">Campus</label>
+                <select name="campus_id" class="form-control" id="campus_id">
+                    <option value="" selected>Choose campus</option>
+                    @foreach($campuses as $campus)
+                    <option value="{{$campus->id}}">{{$campus->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="department">Department (Change with data list)</label>
                 <select name="department" class="form-control" id="department">
                     <option value="" selected>Choose department</option>
                     @foreach($departments as $department)
@@ -51,7 +60,7 @@
             </div>
             <div class="form-group">
                 <label for="number_of_seats">Number of seats</label>
-                <input name="number_of_seats" class="form-control" type="number" value="0" id="number_of_seats">
+                <input min="0" name="number_of_seats" class="form-control" type="number" value="0" id="number_of_seats">
             </div>
             <div class="form-group">
                 <label for="status">Status</label>
@@ -73,7 +82,7 @@
             @endforeach
         </ul>
     </div>
-    @endif    
+    @endif
 </div>
 
 <!-- /.container-fluid -->

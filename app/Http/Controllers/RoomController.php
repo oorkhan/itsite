@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Room;
+use App\Campus;
 use App\Employee;
 use App\Department;
 use Illuminate\Http\Request;
@@ -29,8 +30,9 @@ class RoomController extends Controller
      */
     public function create()
     {
+        $campuses = Campus::all();
         $departments = Department::all();
-        return view ('room.create', compact('departments'));
+        return view ('room.create', compact('departments', 'campuses'));
     }
 
     /**
@@ -41,25 +43,22 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
+        $attributes = request()->validate([
             'name'=>'required|string|min:2',
             'description'=>'required|min:5',
-            'department'=>'integer|exists:departments,id',
+            'phone' => 'string',
+            'campus_id'=>'integer|exists:campuses,id',
             'type' => 'string|required',
             'number_of_seats' => 'integer|not_in:0', //find regex for positive numbers
             'status' => 'string|required',
              ]);
-        Room::create([
-            'name'=>request('name'),
-            'description'=>request('description'),
-            'department_id'=>request('department'),
-            'type' => request('type'),
-            'number_of_seats' => request('number_of_seats'),
-            'status' => request('status'),
-            'phone' => request('phone') //find reqex for phone
-        ]);
-        Session::flash('success' , 'Room has been added.');
-        return redirect('\rooms');
+            if($request->department_id !== null)
+            {
+               $attributes .= request()->validate([ 'department'=>'integer|exists:departments,id']);
+            }
+        $room = Room::create($attributes);
+        Session::flash('success' , 'Room '.$room->name.' has been added.');
+        return redirect(route('rooms.index'));
     }
 
     /**
@@ -81,8 +80,9 @@ class RoomController extends Controller
      */
     public function edit(Room $room)
     {
+        $campuses = Campus::all();
         $departments = Department::all();
-        return view('room.edit', compact('departments'), compact('room'));
+        return view('room.edit', compact('departments', 'campuses', 'room'));
     }
 
     /**
@@ -94,24 +94,20 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room)
     {
-        request()->validate([
+        $attributes = request()->validate([
             'name'=>'required|string|min:2',
             'description'=>'required|min:5',
-            'department'=>'integer|exists:departments,id',
+            'phone' => 'string',
             'type' => 'string|required',
             'number_of_seats' => 'integer|not_in:0', //find regex for positive numbers
             'status' => 'string|required',
              ]);
-        $room->update([
-            'name'=>request('name'),
-            'description'=>request('description'),
-            'department_id'=>request('department'),
-            'type' => request('type'),
-            'number_of_seats' => request('number_of_seats'),
-            'status' => request('status'),
-            'phone' => request('phone') //find reqex for phone
-        ]);
-        Session::flash('success' , 'Room information has been updated.');
+              if($request->department_id !== null)
+            {
+               $attributes .= request()->validate([ 'department'=>'integer|exists:departments,id']);
+            }
+        $room->update($attributes);
+        Session::flash('success' , 'Room '.$room->name.' information has been updated.');
         return redirect(route('rooms.show', $room->id));
     }
 
@@ -123,6 +119,8 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        //
+        $room->delete();
+        Session::flash('success' , 'Room '.$room->name.' has been deleted.');
+        return redirect(route('rooms.index'));
     }
 }

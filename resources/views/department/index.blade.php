@@ -1,7 +1,3 @@
-<?php
-use App\Http\Controllers\departmentsController;
-$createUrl = action('departmentsController@create');
-?>
 @extends('layout')
 @section('title', 'Departments')
 @section('content')
@@ -21,7 +17,8 @@ $createUrl = action('departmentsController@create');
 <hr>
 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo a esse, minima tempora, magni quas obcaecati voluptate vero architecto ex maiores quaerat mollitia cum nostrum adipisci, harum perspiciatis assumenda.</p>
 <div>
-<a class="btn btn-success mb-2" href="{{$createUrl}}">Add department</a>
+@include('messages')
+<a class="btn btn-success mb-2" href="{{route('departments.create')}}">Add department</a>
 </div>
 <div class="card mb-3">
     <div class="card-header">
@@ -50,15 +47,9 @@ $createUrl = action('departmentsController@create');
             @foreach ($departments as $department)
             <tr>
                 <td><a href="/departments/{{$department->id}}">{{$department->name}}</a></td>
-                <td><a href="/departments/{{$department->id}}/edit" class="btn btn-warning">Edit</a></td>
-                <td>
-                    <form action="/departments/{{$department->id}}" method="POST">
-                    {{method_field('DELETE')}}
-                    {{CSRF_field()}}
-                    <input class="btn btn-danger" type="submit" value="Delete">
-                    </form>
-                </td>
-                <td><a href="/departments/{{$department->id}}" class="btn btn-primary">Details</a></td>
+                <td>//change</td>
+                <td>//change</td>
+                <td>//change</td>
             </tr>
             @endforeach
             </tbody>

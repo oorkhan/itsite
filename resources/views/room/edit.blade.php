@@ -15,7 +15,7 @@
     <!-- Page Content -->
 <h1>@yield('title')</h1>
 <hr>
-<p>Edit room information or <a href="{{ URL::previous() }}" class="btn btn-outline-dark btn-sm">go back</a></p>
+<p>Edit room information or <a href="{{ route('rooms.show', $room->id) }}" class="btn btn-outline-dark btn-sm">go back</a></p>
 <div class="row">
     <div class="col-md-6">
         <form method="POST" action="/rooms/{{$room->id}}">
@@ -32,6 +32,15 @@
             <div class="form-group">
                 <label for="phone">Phone number</label>
                 <input type="text" value="{{$room->phone}}" required name="phone" class="form-control {{$errors->has('phone') ? 'border border-danger' : ''}}" id="phone" >
+            </div>
+             <div class="form-group">
+                <label for="campus_id">Campus</label>
+                <select name="campus_id" class="form-control" id="campus_id">
+                    <option value="" selected>Choose campus</option>
+                    @foreach($campuses as $campus)
+                    <option {{$campus->id == $room->campus->id ? 'selected' : ''}} value="{{$campus->id}}">{{$campus->name}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="department">Department (Change with search-select box)</label>
@@ -71,7 +80,7 @@
             @endforeach
         </ul>
     </div>
-    @endif    
+    @endif
 </div>
 
 <!-- /.container-fluid -->

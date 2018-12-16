@@ -19,6 +19,7 @@
     patch /departments/1/edit (update)
     delete /departments/1 (destroy)
 */
+Route::resource('campuses', 'CampusController');
 Route::resource('equipment_type','EquipmentTypeController');
 Route::resource('departments', 'departmentsController');
 Route::resource('employees', 'employeesController');

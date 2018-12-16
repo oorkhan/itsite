@@ -1,7 +1,3 @@
-<?php
-use App\Http\Controllers\RoomController;
-$createUrl = action('RoomController@create');
-?>
 @extends('layout')
 @section('title', 'Rooms')
 @section('content')
@@ -22,7 +18,7 @@ $createUrl = action('RoomController@create');
     @include('/messages')
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo a esse, minima tempora, magni quas obcaecati voluptate vero architecto ex maiores quaerat mollitia cum nostrum adipisci, harum perspiciatis assumenda.</p>
     <div>
-    <a class="btn btn-success mb-2" href="{{$createUrl}}">Add Room</a>
+    <a class="btn btn-success mb-2" href="{{route('rooms.create')}}">Add Room</a>
     </div>
     <div class="row">
     <div class="col-md-12">
@@ -61,10 +57,16 @@ $createUrl = action('RoomController@create');
                     <td><a href="#">{{$room->id}}</a></td>
                     <td><a href="{{route('rooms.show', $room->id)}}">{{$room->name}}</a></td>
                     <td>{{$room->description}}</td>
-                    <td><a href="{{route('departments.show', $room->department->id)}}">{{$room->department->name}}</a></td>
-                    <td><a href="#">{{$room->type}}</a></td>
-                    <td><a href="#">{{$room->number_of_seats}}</a></td>
-                    <td><a href="#">{{$room->employee->count()}}</a></td> <!--count employees in the room-->
+                    <td>
+                        @if($room->department_id)
+                            <a href="{{route('department.show', $room->department_id)}}">$room->department->name</a>
+                        @else
+                            no
+                        @endif
+                    </td>
+                    <td>{{$room->type}}</td>
+                    <td>{{$room->number_of_seats}}</td>
+                    <td>{{$room->employee->count()}}</td> <!--count employees in the room-->
                 </tr>
                 @endforeach
                 </tbody>
@@ -72,8 +74,8 @@ $createUrl = action('RoomController@create');
             </div>
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-        </div>    
-    </div>        
+        </div>
+    </div>
 </div>
 </div>
 <!-- /.container-fluid -->

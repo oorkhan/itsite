@@ -1,4 +1,4 @@
-<?php 
+<?php
     $departmentName = $department->name;
 ?>
 @extends('layout')
@@ -16,18 +16,19 @@
 
     <div class="row">
         <div class="col-md-8">
+            @include('messages')
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    {{$department->name}} department info.
+                    Department: {{$department->name}} | Campus: {{$department->campus->name}}.
                 </div>
                 <div class="card-body">
                     <h2>Description:</h2>
                     <p>{{$department->description}}</p>
                 </div>
                 <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-            </div>    
-        </div>        
+            </div>
+        </div>
     </div>
     @if($department->employees->count())
 <div class="row">
@@ -66,21 +67,26 @@
                 <td>{{$employee->phone}}</td>
                 <td>{{$employee->email}}</td>
                 </tr>
-                @endforeach         
+                @endforeach
                 </tbody>
                 </table>
             </div>
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-        </div>    
-    </div>        
+        </div>
+    </div>
 </div>
-    @endif    
-<a href="{{ URL::previous() }}" class="btn btn-primary">Go Back</a>
+@endif
+    <a href="{{ route('departments.index') }}" class="btn btn-primary">Go Back</a>
+    <a href="{{route('departments.edit', $department->id)}}" class="btn btn-warning">EDIT</a>
+    <a href="#" onclick="if(confirm('Are you sure?')){$('#deleteform').submit()}" class="btn btn-danger">DELETE</a>
+    <form id="deleteform" action="{{route('departments.destroy', $department->id)}}" method="POST">
+        @csrf
+        @method('DELETE')
+    </form>
 </div>
 
 
-<a href="{{ URL::previous() }}" class="btn btn-outline-dark">BACK</a>
 <!-- /.container-fluid -->
 
 @endsection
