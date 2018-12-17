@@ -43,11 +43,18 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="department">Department (Change with search-select box)</label>
-                <select name="department" class="form-control" id="department">
+                <label for="department_id">Department (Change with search-select box)</label>
+                <select name="department_id" class="form-control" id="department_id">
+                    <option selected>Select department</option>
+                    @if($room->department)
                     @foreach($departments as $department)
                     <option value="{{$department->id}}" {{$department->id == $room->department->id ? 'selected' : ''}}>{{$department->name}}</option>
                     @endforeach
+                    @else
+                    @foreach($departments as $department)
+                    <option value="{{$department->id}}"}}>{{$department->name}}</option>
+                    @endforeach
+                    @endif
                 </select>
             </div>
             <div class="form-group">

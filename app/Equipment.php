@@ -8,9 +8,12 @@ class Equipment extends Model
 {
     protected $guarded = [];
     public function equipmentType(){
-        return $this->belongsTo(EquipmentType::class);
+        return $this->belongsTo(EquipmentType::class, 'EquipmentType_id');
     }
-    public function systemUnit(){
-        return $this->hasOne(SystemUnit::class);
+    public function room(){
+        return $this->belongsTo(Room::class);
+    }
+     public function employee(){
+        return $this->belongsTo(Employee::class);
     }
 }

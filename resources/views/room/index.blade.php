@@ -59,7 +59,7 @@
                     <td>{{$room->description}}</td>
                     <td>
                         @if($room->department_id)
-                            <a href="{{route('department.show', $room->department_id)}}">$room->department->name</a>
+                            <a href="{{route('departments.show', $room->department_id)}}">{{$room->department->name}}</a>
                         @else
                             no
                         @endif

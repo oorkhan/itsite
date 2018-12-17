@@ -11,4 +11,7 @@ class EquipmentType extends Model
     public function addType($type){
         $this->create($type);
     }
+    public function equipments(){
+        $this->hasMany(Equipment::class);
+    }
 }

@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col-md-6">
         <form method="POST" action="/rooms">
-        {{csrf_field()}}
+        @csrf
             <div class="form-group">
                 <label for="name">Name</label>
                 <input placeholder="name" required value="{{old('name')}}" name="name" class="form-control {{$errors->has('name') ? 'border border-danger' : ''}}" id="name" type="text" >
@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label for="phone">Phone number</label>
-                <input type="text" value="{{old('phone')}}" required name="phone" class="form-control {{$errors->has('phone') ? 'border border-danger' : ''}}" id="phone" >
+                <input type="text" value="{{old('phone')}}" name="phone" class="form-control {{$errors->has('phone') ? 'border border-danger' : ''}}" id="phone" >
             </div>
             <div class="form-group">
                 <label for="campus_id">Campus</label>

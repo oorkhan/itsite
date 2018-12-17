@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Room;
 use App\Employee;
 use App\Equipment;
 use App\EquipmentType;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class EquipmentController extends Controller
 {
@@ -43,7 +44,20 @@ class EquipmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = request()->validate([
+            'serial_no' => 'string|min:3',
+            'inventar_no' => 'string|min:3',
+            'room_id' => 'integer|exists:rooms,id',
+            'price' => 'integer',
+            'date_of_purchase' =>'date',
+            'status' => 'string',
+            'model' => 'string|required',
+            'employee_id' => 'integer|exists:employees,id',
+            'EquipmentType_id' => 'integer|exists:equipment_types,id',
+        ]);
+        $equipment = Equipment::create($attributes);
+        Session::flash('success' , 'Equipment '.$equipment->model.' has been added.');
+        return redirect(route('equipments.index'));
     }
 
     /**
@@ -54,7 +68,7 @@ class EquipmentController extends Controller
      */
     public function show(Equipment $equipment)
     {
-        //
+        return view('equipment.show', compact('equipment'));
     }
 
     /**
@@ -65,7 +79,7 @@ class EquipmentController extends Controller
      */
     public function edit(Equipment $equipment)
     {
-        //
+        return view('equipment.edit', compact('equipment'));
     }
 
     /**
@@ -77,7 +91,20 @@ class EquipmentController extends Controller
      */
     public function update(Request $request, Equipment $equipment)
     {
-        //
+         $attributes = request()->validate([
+            'serial_no' => 'string|min:3',
+            'inventar_no' => 'string|min:3',
+            'room_id' => 'integer|exists:rooms,id',
+            'price' => 'integer',
+            'date_of_purchase' =>'date',
+            'status' => 'string',
+            'model' => 'string|required',
+            'employee_id' => 'integer|exists:employees,id',
+            'EquipmentType_id' => 'integer|exists:equipment_types,id',
+        ]);
+        $equipment->update($attributes);
+        Session::flash('success' , 'Equipment '.$equipment->model.' has been updated.');
+        return redirect(route('equipments.show'));
     }
 
     /**
@@ -88,6 +115,8 @@ class EquipmentController extends Controller
      */
     public function destroy(Equipment $equipment)
     {
-        //
+        $equipment->delete();
+        Session::flash('success' , 'Equipment '.$equipment->model.' has been deleted.');
+        return redirect(route('equipment.index'));
     }
 }

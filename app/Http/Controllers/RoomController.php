@@ -54,7 +54,7 @@ class RoomController extends Controller
              ]);
             if($request->department_id !== null)
             {
-               $attributes .= request()->validate([ 'department'=>'integer|exists:departments,id']);
+               $attributes .= request()->validate([ 'department_id'=>'integer|exists:departments,id']);
             }
         $room = Room::create($attributes);
         Session::flash('success' , 'Room '.$room->name.' has been added.');
@@ -101,11 +101,8 @@ class RoomController extends Controller
             'type' => 'string|required',
             'number_of_seats' => 'integer|not_in:0', //find regex for positive numbers
             'status' => 'string|required',
+            'department_id' => 'exists:departments,id',
              ]);
-              if($request->department_id !== null)
-            {
-               $attributes .= request()->validate([ 'department'=>'integer|exists:departments,id']);
-            }
         $room->update($attributes);
         Session::flash('success' , 'Room '.$room->name.' information has been updated.');
         return redirect(route('rooms.show', $room->id));
